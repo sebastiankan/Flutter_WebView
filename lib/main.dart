@@ -1,16 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_webview/screens/home/home.dart';
+import 'package:flutter/services.dart';
+import 'package:brookli/local_notification.dart';
+import 'package:brookli/screens/home/home.dart';
 
-void main() {
+void main() async {
+  LocalNotificationManager _localNotificationManager =
+      LocalNotificationManager();
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarColor: Colors.white,
+    statusBarIconBrightness: Brightness.dark,
+    systemNavigationBarColor: Colors.white,
+    systemNavigationBarIconBrightness: Brightness.dark,
+  ));
+  WidgetsFlutterBinding.ensureInitialized();
+  await _localNotificationManager.initialize();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      title: 'Brookli',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -47,7 +61,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -56,6 +69,6 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return Home();
+    return Directionality(textDirection: TextDirection.rtl, child: Home());
   }
 }
